@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <context-param>
+    <param-name>javax.ws.rs.Application</param-name>
+    <param-value>assign.resources.ProjectApplication</param-value>
+  </context-param>
+  <context-param>
+    <param-name>DBURL</param-name>
+    <param-value>jdbc:mysql://localhost:3306/assignmentdb</param-value>
+  </context-param>
+  <context-param>
+    <param-name>DBUSERNAME</param-name>
+    <param-value>root</param-value>
+  </context-param>
+  <context-param>
+    <param-name>DBPASSWORD</param-name>
+    <param-value>O6xu3W2HCvK656</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>Assignment4</servlet-name>
+    <servlet-class>
+            org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+        </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Assignment4</servlet-name>
+    <url-pattern>/assignment4</url-pattern>
+  </servlet-mapping>
+</web-app>
