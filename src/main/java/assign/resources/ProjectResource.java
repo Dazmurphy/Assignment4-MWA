@@ -30,75 +30,76 @@ import assign.services.ProjectServiceImpl;
 
 @Path("/myeavesdrop")
 public class ProjectResource {
-	
+
 	ProjectService projectService;
 	String password;
 	String username;
-	String dburl;	
-	
+	String dburl;
+
 	public ProjectResource(@Context ServletContext servletContext) {
 		dburl = servletContext.getInitParameter("DBURL");
 		username = servletContext.getInitParameter("DBUSERNAME");
 		password = servletContext.getInitParameter("DBPASSWORD");
-		this.projectService = new ProjectServiceImpl(dburl, username, password);		
+		this.projectService = new ProjectServiceImpl(dburl, username, password);
 	}
-	
+
 	@POST
 	@Path("/projects")
 	@Consumes(MediaType.APPLICATION_XML)
 	public Response postProject(Project p) throws Exception {
-		
-		if(p.getDescription().equals("") || p.getName().equals("")){
+
+		if (p.getDescription().equals("") || p.getName().equals("")) {
 			return Response.status(400).build();
 		}
-		
+
 		projectService.addProject(p);
-		
+
 		URI uri = new URI("http://localhost:8080/assignment4/myeavesdrop/projects/" + p.getProjectId());
 		return Response.created(uri).build();
 	}
-	
+
 	@PUT
 	@Path("/projects/{projectId}")
 	@Consumes(MediaType.APPLICATION_XML)
-	public Response putProject(Project p, @PathParam("projectId") int projectId) throws Exception{
-		
+	public Response putProject(Project p, @PathParam("projectId") int projectId) throws Exception {
+
 		p.setProjectId(projectId);
-		
-		if(p.getDescription().equals("") || p.getName().equals("") || projectService.checkProjectId(projectId) == false){
+
+		if (p.getDescription().equals("") || p.getName().equals("")
+				|| projectService.checkProjectId(projectId) == false) {
 			return Response.status(400).build();
 		}
-		
+
 		projectService.updateProject(p);
-		
+
 		return Response.ok().build();
 	}
-	
+
 	@DELETE
 	@Path("/projects/{projectId}")
-	public Response deleteProject(@PathParam("projectId") int projectId) throws Exception{
-		
-		if(projectService.checkProjectId(projectId) == false){
+	public Response deleteProject(@PathParam("projectId") int projectId) throws Exception {
+
+		if (projectService.checkProjectId(projectId) == false) {
 			return Response.status(404).build();
 		}
-		
+
 		projectService.deleteProject(projectId);
-		
+
 		return Response.ok().build();
 	}
-	
+
 	@GET
 	@Path("/projects/{projectId}")
 	@Produces("application/xml")
 	public Response getProject(@PathParam("projectId") int projectId) throws Exception {
-		
-		if(projectService.checkProjectId(projectId) == false){
+
+		if (projectService.checkProjectId(projectId) == false) {
 			return Response.status(404).build();
 		}
-		
+
 		Project p = projectService.getProject(projectId);
-		
+
 		return Response.ok(p, MediaType.APPLICATION_XML).build();
-	     
+
 	}
 }

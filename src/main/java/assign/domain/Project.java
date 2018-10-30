@@ -9,37 +9,37 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "project")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Project {
-	
+
 	@XmlElement
 	String name;
-	
+
 	@XmlElement
 	String description;
-	
+
 	@XmlAttribute
 	int id;
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getDescription(){
+
+	public String getDescription() {
 		return description;
 	}
-	
-	public void setDescription(String description){
+
+	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public int getProjectId(){
+
+	public int getProjectId() {
 		return id;
 	}
-	
-	public void setProjectId(int projectId){
+
+	public void setProjectId(int projectId) {
 		this.id = projectId;
 	}
 }
